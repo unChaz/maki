@@ -1,4 +1,49 @@
 extends layouts/default
 
 block content
-  h1 How To
+  .ui.huge.header
+    h1.center-text How To Use Bitcoin
+  
+  .ui.divider
+    
+  h1.center-text Get Bitcoins
+  
+  .ui.two.column.grid
+    .column
+      iframe(width="560", height="315", src="//www.youtube.com/embed/Lhyi-7l046w", frameborder="0", allowfullscreen)
+    .column
+      h2 Recommended Wallets
+      ul
+        li
+          a(href="https://blockchain.info/wallet") Blockchain.info
+          span  Web Wallet (website and Android app) 
+        li
+          a(href="https://multibit.org/") Multibit
+          span  PC and Mac client. More secure. Back up your private key!
+          
+      h2 Where to Buy 
+      ul
+        li
+          a(href="https://www.circle.com/en") Circle:
+          span  Easy to use, but still in beta, so you might have to wait for an invite.
+        li
+          a(href="https://localbitcoins.com/") Local Bitcoins:
+          span  Buy Bitcoin from locals. Be safe! Meet in a public location.
+        li
+          a(href="https://www.bitstamp.net/") Bitstamp:
+          span  Buy directly from an exchange.
+    
+  .ui.divider
+    
+  h1.center-text Learn More
+          
+  .ui.two.column.grid
+    .column
+      iframe(width="560", height="315", src="//www.youtube.com/embed/Bhe61JaNFLU", frameborder="0", allowfullscreen)
+    .column
+      p Bitcoin can be a very complex and technical subject to understand. But if I asked you how your credit card works would you be able to answer? James D'Angelo does a great job at explaining everything in the video to the left.
+      p You also need to be aware of many common misconceptions about Bitcoin.
+      a(href="https://en.bitcoin.it/wiki/Myths") This wiki page covers some of them quite well.
+  
+  .ui.divider
+    

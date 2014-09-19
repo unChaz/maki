@@ -43,6 +43,6 @@ module.exports = {
   app: {
     bitpayEnv: "bitpay.com",
     apiKey: "BRrn9LuQqcv5iNZOkwSGXrARc0DlLcdxNZLqJaap0cQ",
-    goal: 1000
+    goal: 10000
   }
 };
