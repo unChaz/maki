@@ -44,7 +44,7 @@ block content
     .content
       .left
       .right
-        form.ui.form.segment(action="https://chaz.bp:8088/checkout", method="post", target="_blank", onsubmit="hideDonateModal();")
+        form.ui.form.segment(action="https://bitpay.com/checkout", method="post", target="_blank", onsubmit="hideDonateModal();")
           input(name="action", type="hidden", value="checkout")
           .field
             label Name
@@ -60,6 +60,6 @@ block content
                   select(name="currency", value="USD")
                     option(value="BTC") BTC
                     option(value="USD") USD
-          input(type="hidden", name="data", value="IU4zgUQbdOVy18IAVwmPkjO45lawZparWQpKouDr06p4fOyPV1nYnfu2qUBKSk6jx+bHN0j6MMW2pCnMz56ggutlrz+dMpF21jiE/nmHIzgVXPBcklvVlTCtRFcE06oYrIxb19QeTig2eFNZE0PIhf5r4ZoqKEC0VbW7+jNbSz78Ua1MQpwB+rCFy3i3gQNGl/3S8VbTuMwFgnEHyI4CCf9t+CAvxdAIhBsKkSs/hQ8=")
+          input(type="hidden", name="data", value="/uuHnQQ4IJhwLTgQ9BQIVO9G8X/XqeMaki9uJG7pQLJC3g5AThXtbBuX0t4VxNT252dM98V/nB5rYfV6vo3kvTjuT0hbCvp1iiH5rN3WUFAovxj2b4taVDkWYJyiG2RLdtzaVMkGCTaj7IKfM+0KFu/UBD1LB8np7fHHSqZ4/7RPLYMw4FzaeMM7lPweDycx4mhCJf1XPmeOlPy0fSjL8aJK6Q2B6DbMc1vYm5kV6egoV3wNb3eFp9SCP2DBgOzv")
           input(name="submit", src="https://bitpay.com/img/donate-button.svg", onerror="this.onerror=null; this.src='https://bitpay.com/img/donate-button-md.png'", width="126", height="48", type="image", alt="BitPay, the easy way to pay with bitcoins.", border="0", style="float:right;")
           a.ui.red.button(href="#", onclick="hideDonateModal();", style="float:right;margin:5px") Cancel
