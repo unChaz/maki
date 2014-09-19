@@ -4,16 +4,17 @@ block content
   .ui.huge.header
     h1 Vacation Fund
   .ui.green.active.progress
-    .bar(style="width:#{(contributed/goal)*100}%;")
+    .bar(style="width:#{((contributed/(goal/exRate))*100)}%;")
 
   .ui
     .ui.three.column.grid
       .column
         .ui.green.segment.card
           h1.center-text Contributed
-          .ui.huge.header
-            h2.center-text #{contributed}
-          h3.center-text.latest-label ($#{Math.round((contributed*exRate)*10000)/10000} USD)
+          if contributed
+            .ui.huge.header
+              h2.center-text #{contributed}
+            h3.center-text.latest-label ($#{Math.round((contributed*exRate)*100)/100} USD)
       .column
         .ui.blue.segment.card
           h1.center-text Goal
@@ -23,9 +24,10 @@ block content
       .column
         .ui.red.segment.card
           h1.center-text Latest Donation
-          .ui.huge.header
-            h2.center-text #{latest.btcPrice} BTC
-          h3.center-text.latest-label #{latest.buyerName}
+          if latest
+            .ui.huge.header
+              h2.center-text #{latest.btcPrice} BTC
+            h3.center-text.latest-label #{latest.buyerName}
     
     .ui.three.column.grid
       .column
@@ -55,7 +57,7 @@ block content
           .field
             label Currency
               .ui.left.labeled.icon.input
-                  select(name="currency", value="BTC")
+                  select(name="currency", value="USD")
                     option(value="BTC") BTC
                     option(value="USD") USD
           input(type="hidden", name="data", value="IU4zgUQbdOVy18IAVwmPkjO45lawZparWQpKouDr06p4fOyPV1nYnfu2qUBKSk6jx+bHN0j6MMW2pCnMz56ggutlrz+dMpF21jiE/nmHIzgVXPBcklvVlTCtRFcE06oYrIxb19QeTig2eFNZE0PIhf5r4ZoqKEC0VbW7+jNbSz78Ua1MQpwB+rCFy3i3gQNGl/3S8VbTuMwFgnEHyI4CCf9t+CAvxdAIhBsKkSs/hQ8=")

@@ -51,6 +51,10 @@ maki.resources.IPN.pre('save', function( done ) {
       done(result)
       this.retry(5000);
     } else {
+      ipn.price = result.price;
+      ipn.btcPrice = result.btcPrice;
+      ipn.buyerName = result.buyerFields.buterName;
+      ipn.date = result.date;
       done();
     }
   });
@@ -74,7 +78,6 @@ maki.resources.IPN.on('create', function( ipn ) {
   maki.resources.Contribution.create()( mockRequest , mockResponse , function(err, done) {
     console.log("Created Contribution")
   });
-  
 });
 
 
@@ -91,37 +94,31 @@ maki.app.get('/', function(req, res, next) {
     });
   }
   
-  var map = function() {
-    emit('btcAmount', Contribution)
-  }
-  
-  var reduce = function (key, vals) { return Array.sum(vals); };
-  
-  Contribution.mapReduce(
-    {
-      map: map,
-      reduce: reduce
-    },
-    function(err, result) {
-      data.contributed = result;
-      var query = Contribution.findOne().sort({$natural:1});
-      
-      query.exec(function(err, contribution) {
-        if(err) {
-          console.log(err)
+  Contribution.find({}, function(err, contributions) {
+    var total = 0;
+    contributions.forEach(function(contribution) {
+      total += contribution.btcPrice;
+    })
+    data.contributed = total;
+    
+    var query = Contribution.findOne().sort({$natural:-1});
+    
+    query.exec(function(err, contribution) {
+      if(err) {
+        console.log(err)
+      }
+      if (contribution) {
+        data.latest = contribution;
+      }
+      getExRate(function(exRate) {
+        if(err || !exRate) {
+          console.log("Unable to get BTC Exchange Rate.")
         }
-        if (contribution) {
-          data.latest = contribution;
-        }
-        getExRate(function(exRate) {
-          if(err || !exRate) {
-            console.log("Unable to get BTC Exchange Rate.")
-          }
-          data.exRate = exRate;
-          res.render('index', data );
-        });
+        data.exRate = exRate;
+        res.render('index', data );
       });
     });
+  });
 });
 
 maki.start();
