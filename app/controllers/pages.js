@@ -1,6 +1,15 @@
 module.exports = {
   index: function(req, res, next) {
-    res.provide('index');
+    var data = {
+      contributed: 750.00,
+      goal: 15000,
+      latest: {
+        buyerName: "Eric Martindale",
+        btcPrice: .021
+      },
+      exRate: 436
+    }
+    res.provide('index', data);
   },
   patch: function(req, res, next) {
     res.send('Patch completed successfully.');

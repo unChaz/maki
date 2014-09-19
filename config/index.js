@@ -39,5 +39,10 @@ module.exports = {
     plugins: {
       'moment': require('moment')
     }
+  },
+  app: {
+    bitpayEnv: "chaz.bp:8088",
+    apiKey: "wbwu4GngrK5471gUA5Fkf8kLEYCPBebDEYhXT0Gn7c",
+    goal: 15000
   }
 };

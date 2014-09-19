@@ -1,66 +1,63 @@
 extends layouts/default
 
 block content
-  if (user)
-    h1 Welcome, #{user.username}!
+  .ui.huge.header
+    h1 Vacation Fund
+  .ui.green.active.progress
+    .bar(style="width:#{(contributed/goal)*100}%;")
 
-  else
-    .ui.huge.header
-      h1 Vacation Fund
-    .ui.green.active.progress
-      .bar(style="width:50%;")
+  .ui
+    .ui.three.column.grid
+      .column
+        .ui.green.segment.card
+          h1.center-text Contributed
+          .ui.huge.header
+            h2.center-text #{contributed}
+          h3.center-text.latest-label ($#{Math.round((contributed*exRate)*10000)/10000} USD)
+      .column
+        .ui.blue.segment.card
+          h1.center-text Goal
+          .ui.huge.header
+            h2.center-text #{Math.round((goal/exRate)*10000)/10000} BTC
+          h3.center-text.latest-label ($#{goal} USD)
+      .column
+        .ui.red.segment.card
+          h1.center-text Latest Donation
+          .ui.huge.header
+            h2.center-text #{latest.btcPrice} BTC
+          h3.center-text.latest-label #{latest.buyerName}
+    
+    .ui.three.column.grid
+      .column
+      .column
+        a.fluid.positive.massive.ui.button(href="#", onclick="showDonateModal();") Donate
+      .column
 
-    .ui
-      .ui.three.column.grid
-        .column
-          .ui.green.segment.card
-            h1.center-text Contributed
-            .ui.huge.header
-              h2.center-text $7,500.00
-        .column
-          .ui.blue.segment.card
-            h1.center-text Goal
-            .ui.huge.header
-              h2.center-text $15,000.00
-        .column
-          .ui.red.segment.card
-            h1.center-text Latest
-            .ui.huge.header
-              h2.center-text $152.00
-            h3.center-text.latest-label Chaz Ferguson
-      
-      .ui.three.column.grid
-        .column
-        .column
-          a.fluid.positive.massive.ui.button(href="#", onclick="showDonateModal();") Donate
-        .column
-
-      .ui.column.grid
-        .column
-          hr
-    .ui.modal#donate-modal
-      i.close.icon
-      .header Donate
-      .content
-        .left
-        .right
-          form.ui.form.segment(action="https://bitpay.com/checkout", method="post", target="_blank", onsubmit="hideDonateModal();")
-            input(name="action", type="hidden", value="checkout")
-            .field
-              label Name
-                .ui.left.labeled.icon.input
-                  input(name="buyerName", type="text", placeholder="Your Name (optional)", maxlength="50")
-            .field
-              label Amount
-                .ui.left.labeled.icon.input
-                  input(name="price", type="number", value="10.00", placeholder="Amount", maxlength="10", min=".0001", step=".0001")
-            .field
-              label Currency
-                .ui.left.labeled.icon.input
-                    select(name="currency", value="BTC")
-                      option(value="BTC") BTC
-                      option(value="USD") USD
-            
-            input(type="hidden", name="data", value="/uuHnQQ4IJhwLTgQ9BQIVO9G8X/XqeMaki9uJG7pQLJC3g5AThXtbBuX0t4VxNT252dM98V/nB5rYfV6vo3kvTjuT0hbCvp1iiH5rN3WUFAovxj2b4taVDkWYJyiG2RLdtzaVMkGCTaj7IKfM+0KFr40R0atrbxyigJnAwr9zInV69ToV2EMnp5BB1aJPWIA")
-            input(name="submit", src="https://bitpay.com/img/donate-button.svg", onerror="this.onerror=null; this.src='https://bitpay.com/img/donate-button-md.png'", width="126", height="48", type="image", alt="BitPay, the easy way to pay with bitcoins.", border="0", style="float:right;")
-            a.ui.red.button(href="#", onclick="hideDonateModal();", style="float:right;margin:5px") Cancel
+    .ui.column.grid
+      .column
+        hr
+  .ui.modal#donate-modal
+    i.close.icon
+    .header Donate
+    .content
+      .left
+      .right
+        form.ui.form.segment(action="https://chaz.bp:8088/checkout", method="post", target="_blank", onsubmit="hideDonateModal();")
+          input(name="action", type="hidden", value="checkout")
+          .field
+            label Name
+              .ui.left.labeled.icon.input
+                input(name="buyerName", type="text", placeholder="Your Name (optional)", maxlength="50")
+          .field
+            label Amount
+              .ui.left.labeled.icon.input
+                input(name="price", type="number", value="10.00", placeholder="Amount", maxlength="10", min=".0001", step=".0001")
+          .field
+            label Currency
+              .ui.left.labeled.icon.input
+                  select(name="currency", value="BTC")
+                    option(value="BTC") BTC
+                    option(value="USD") USD
+          input(type="hidden", name="data", value="IU4zgUQbdOVy18IAVwmPkjO45lawZparWQpKouDr06p4fOyPV1nYnfu2qUBKSk6jx+bHN0j6MMW2pCnMz56ggutlrz+dMpF21jiE/nmHIzgVXPBcklvVlTCtRFcE06oYrIxb19QeTig2eFNZE0PIhf5r4ZoqKEC0VbW7+jNbSz78Ua1MQpwB+rCFy3i3gQNGl/3S8VbTuMwFgnEHyI4CCf9t+CAvxdAIhBsKkSs/hQ8=")
+          input(name="submit", src="https://bitpay.com/img/donate-button.svg", onerror="this.onerror=null; this.src='https://bitpay.com/img/donate-button-md.png'", width="126", height="48", type="image", alt="BitPay, the easy way to pay with bitcoins.", border="0", style="float:right;")
+          a.ui.red.button(href="#", onclick="hideDonateModal();", style="float:right;margin:5px") Cancel
