@@ -1,8 +1,9 @@
 Maki
 ==============
-[ ![Codeship Status for unChaz/maki](https://codeship.io/projects/57dfba30-21f2-0132-a891-22cde3786202/status)](https://codeship.io/projects/36377)
+
 [![Build Status](https://travis-ci.org/martindale/maki.svg)](https://travis-ci.org/martindale/maki)
 [![Coverage Status](https://coveralls.io/repos/martindale/maki/badge.png?branch=master)](https://coveralls.io/r/martindale/maki?branch=master)
+[ ![Codeship Status for unChaz/maki](https://codeship.io/projects/57dfba30-21f2-0132-a891-22cde3786202/status)](https://codeship.io/projects/36377)
 
 Maki is a framework for hand-rolling web applications in a way that makes sense to a human.
 
