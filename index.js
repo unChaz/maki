@@ -1,6 +1,3 @@
-require('debug-trace')({ always: true });
-
-
 var config = require('./config');
 var rest = require('restler');
 var Maki = require('./lib/Maki');
