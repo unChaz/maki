@@ -1,72 +1,76 @@
 var config = require('./config');
-
+var rest = require('restler');
 var Maki = require('./lib/Maki');
 var maki = new Maki( config );
 
-// TODO: build a middleware chain for resources
-maki.app.post('/login', maki.passport.authenticate('local'), function(req, res) {
-  res.redirect('/');
+maki.app.get('/how-to', function(req, res) {
+  res.render('how-to');
 });
 
-maki.app.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
+maki.app.get('/the-plan', function(req, res) {
+  res.render('the-plan');
 });
   
 var resources = [
   {
-    name: 'Example',
+    name: 'Contribution',
     attributes: {
-      name:    { type: String , max: 80 },
-      slug:    { type: String , max: 80 , id: true },
-      content: { type: String }
+      buyerName: { type: String , max: 80 },
+      btcPrice:  { type: Number },
+      price:     { type: Number },
+      currency:  { type: String },
+      date:      { type: Date }
     }
   },
   {
-    name: 'Dashboard',
+    name: 'IPN',
     attributes: {
-      name: { type: String , max: 80 }
-    },
-    requires: {
-      'examples': {},
-      'people': {}
+      status:    { type: String, enum: ['received', 'invalid', 'valid'], default: 'received' },
+      buyerName: { type: String, max: 80 },
+      price:     { type: Number },
+      currency:  { type: String },
+      date:      { type: Date },
+      btcPrice:  { type: Number }
     }
   },
-  {
-    name: 'NewThing',
-    attributes: {
-      name: { type: String , max: 80 }
-    },
-    requires: {
-      'examples': {},
-      'people': {}
-    }
-  }
 ];
-
-maki.define('Person', {
-  attributes: {
-    username: { type: String , max: 80 , required: true , slug: true },
-    hash:     { type: String , restricted: true },
-    salt:     { type: String , restricted: true },
-    email:    { type: String , max: 80 , restricted: true },
-    created:  { type: Date , default: Date.now }
-  },
-  plugins: [
-    require('passport-local-mongoose')
-  ]
-});
-
-var LocalStrategy = require('passport-local').Strategy;
-
-/* enable "local" login (e.g., username and password) */
-maki.passport.use(new LocalStrategy( maki.resources['Person'].Model.authenticate() ) );
-
-maki.passport.serializeUser( maki.resources['Person'].Model.serializeUser() );
-maki.passport.deserializeUser( maki.resources['Person'].Model.deserializeUser() );
 
 resources.forEach(function(resource) {
   maki.define( resource.name , resource );
 });
+
+// maki.resource.IPN.pre('save', function( done ) {
+//   var ipn = this;
+//   
+//   rest.get('https://bitpay.com/i/' + ipn.invoiceId).on('complete', function(result) {
+//     if (result instanceof Error) {
+//       done(result)
+//       this.retry(5000);
+//     } else {
+//       done();
+//     }
+//   });
+// });
+// 
+// // all of my custom behavior
+// maki.resources.IPN.post('create', function( ipn , done ) {
+//   var self = this;
+// 
+//   var fakeRequest = {
+//     body: {
+//       name: req.body.buyerName
+//     }
+//   }
+//   var fakeResponse = {
+//     provide: function( name , data ) {
+//       console.log('[SUCCESS]', name , data);
+//     }
+//   }
+//   
+//   maki.resources.Contribution.create()( fakeRequest , fakeResponse , function(err, done) {
+//     done();
+//   });
+//   
+// });
 
 maki.start();

@@ -6,20 +6,9 @@
       a.item(href="/", title="Maki Homepage", ng-class="{ active: isActive('/')}")
         i.home.icon
         |  Home
-      a.item(href="/examples", title="Projects using Maki", ng-class="{ active: isActive('/examples')}")
-        i.rocket.icon
-        |  Examples
-      a.item(href="/people", title="People on this Maki, an example resource.", ng-class="{ active: isActive('/people')}")
-        i.user.icon
-        |  People
-      .right.menu
-        if (user)
-          div.item.ui.button
-            a.ui.button(href="/people/#{user.slug}", ng-class="{ active: isActive('/people/#{user.slug}')}") #{user.username}
-            div.or
-            a.ui.button(href="/logout") Log Out
-        else
-          div.item.ui.buttons
-            a.ui.button(href="/login", ng-class="{ active: isActive('/login') }") Log In
-            div.or
-            a.ui.teal.button(href="/register", ng-class="{ active: isActive('/register') }") Sign Up &raquo;
+      a.item(href="/how-to", title="How To Use Bitcoin", ng-class="{ active: isActive('/how-to')}")
+        i.bitcoin.icon
+        |  How To Bitcoin
+      a.item(href="/the-plan", title="Here's the plan..", ng-class="{ active: isActive('/the-plan')}")
+        i.suitcase.icon
+        |  The Plan
