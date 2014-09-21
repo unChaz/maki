@@ -9,7 +9,7 @@ module.exports = {
   },
   services: {
     http: {
-        port: process.env.MAKI_HTTP_PORT || 9200
+        port: process.env.MAKI_HTTP_PORT || 80 
       , host: process.env.MAKI_HTTP_HOST || 'localhost'
     }
   },
