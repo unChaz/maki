@@ -3,6 +3,8 @@ var rest = require('restler');
 var Maki = require('./lib/Maki');
 var maki = new Maki( config );
 
+console.log('hello production');
+
 maki.app.get('/how-to', function(req, res) {
   res.render('how-to');
 });
