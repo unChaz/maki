@@ -43,14 +43,17 @@ resources.forEach(function(resource) {
 maki.resources.IPN.pre('save', function( done ) {
   var ipn = this;
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  console.log("IPN received: " + ipn);
   rest.get('https://' + config.app.apiKey + ':x@' + config.app.bitpayEnv + '/api/invoice/' + ipn.id).on('complete', function(result) {
-    if (result instanceof Error) {
-      done(result)
-      this.retry(5000);
+    if (result instanceof Error || result.error) {
+      console.log(result.error || result);
+      done(result.error || result);
     } else {
       ipn.price = result.price;
       ipn.btcPrice = result.btcPrice;
-      ipn.buyerName = result.buyerFields.buyerName;
+      if(result.buyerFields) {
+        ipn.buyerName = result.buyerFields.buyerName;
+      }
       ipn.date = result.date;
       done();
     }
