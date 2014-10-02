@@ -50,7 +50,7 @@ maki.resources.IPN.pre('save', function( done ) {
     } else {
       ipn.price = result.price;
       ipn.btcPrice = result.btcPrice;
-      ipn.buyerName = result.buyerFields.buterName;
+      ipn.buyerName = result.buyerFields.buyerName;
       ipn.date = result.date;
       done();
     }
