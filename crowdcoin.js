@@ -44,7 +44,7 @@ maki.resources.IPN.pre('save', function( done ) {
   var ipn = this;
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   console.log("IPN received: " + ipn);
-  rest.get('https://' + config.app.apiKey + ':x@' + config.app.bitpayEnv + '/api/invoice/' + ipn.id).on('complete', function(result) {
+  rest.get('https://' + config.app.apiKey + ':x@' + config.app.bitpayEnv + '/invoices/' + ipn.id).on('complete', function(result) {
     if (result instanceof Error || result.error) {
       console.log(result.error || result);
       done(result.error || result);
