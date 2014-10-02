@@ -106,6 +106,8 @@ maki.app.get('/', function(req, res, next) {
       }
       if (contribution) {
         data.latest = contribution;
+      } else {
+        data.latest = false;
       }
       getExRate(function(exRate) {
         if(err || !exRate) {
