@@ -59,9 +59,6 @@ maki.resources.IPN.pre('save', function( done ) {
 // all of my custom behavior
 maki.resources.IPN.on('create', function( ipn ) {
   var self = this;
-  
-  
-  console.log(ipn)
 
   maki.resources.Contribution.create( ipn , function(err, done) {
     console.log("Created Contribution")
@@ -73,7 +70,8 @@ maki.app.get('/', function(req, res, next) {
   var _ = require('underscore');
   var Contribution = maki.resources.Contribution.Model
   var data = {
-    goal: config.app.goal
+    goal: config.app.goal,
+    contributed: 0
   };
   
   var getExRate = function(callback) {
@@ -83,11 +81,9 @@ maki.app.get('/', function(req, res, next) {
   }
   
   Contribution.find({}, function(err, contributions) {
-    var total = 0;
     contributions.forEach(function(contribution) {
-      total += contribution.btcPrice;
+      data.contributed += contribution.btcPrice;
     })
-    data.contributed = total;
     
     var query = Contribution.findOne().sort({$natural:-1});
     

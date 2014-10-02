@@ -11,10 +11,13 @@ block content
       .column
         .ui.green.segment.card
           h1.center-text Contributed
-          if contributed
+          if contributed > 0
             .ui.huge.header
               h2.center-text #{contributed} BTC
             h3.center-text.latest-label ($#{Math.round((contributed*exRate)*100)/100} USD)
+          else
+            .ui.huge.header
+              h2.center-text 0 BTC
       .column
         .ui.blue.segment.card
           h1.center-text Goal
