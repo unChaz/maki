@@ -6,10 +6,6 @@ var maki = new Maki( config );
 maki.app.get('/how-to', function(req, res) {
   res.render('how-to');
 });
-
-maki.app.get('/the-plan', function(req, res) {
-  res.render('the-plan');
-});
   
 var resources = [
   {
@@ -40,21 +36,21 @@ resources.forEach(function(resource) {
   maki.define( resource.name , resource );
 });
 
-maki.resources.IPN.post('save', function( done ) {
+maki.resources.IPN.pre('save', function( done ) {
   var ipn = this;
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   console.log("IPN received: " + ipn);
-  rest.get('https://' + config.app.apiKey + ':x@' + config.app.bitpayEnv + '/invoices/' + ipn.id).on('complete', function(result) {
+  rest.get('https://' + config.app.bitpayEnv + '/invoices/' + ipn.id).on('complete', function(result) {
     if (result instanceof Error || result.error) {
       console.log(result.error || result);
       done(result.error || result);
     } else {
-      ipn.price = result.price;
-      ipn.btcPrice = result.btcPrice;
-      if(result.buyerFields) {
-        ipn.buyerName = result.buyerFields.buyerName;
+      ipn.price = result.data.price;
+      ipn.btcPrice = result.data.btcPrice;
+      if(result.data.buyerFields) {
+        ipn.buyerName = result.data.buyerFields.buyerName;
       }
-      ipn.date = result.date;
+      ipn.date = result.data.date;
       done();
     }
   });
@@ -64,18 +60,10 @@ maki.resources.IPN.post('save', function( done ) {
 maki.resources.IPN.on('create', function( ipn ) {
   var self = this;
   
-  var mockRequest = {
-    body: ipn ,
-    param: function() {}
-  }
   
-  var mockResponse = {
-    provide: function( name , data ) {
-      console.log('[SUCCESS]', name , data);
-    }
-  }
+  console.log(ipn)
 
-  maki.resources.Contribution.create()( mockRequest , mockResponse , function(err, done) {
+  maki.resources.Contribution.create( ipn , function(err, done) {
     console.log("Created Contribution")
   });
 });
