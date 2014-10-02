@@ -40,7 +40,7 @@ resources.forEach(function(resource) {
   maki.define( resource.name , resource );
 });
 
-maki.resources.IPN.pre('save', function( done ) {
+maki.resources.IPN.post('save', function( done ) {
   var ipn = this;
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   console.log("IPN received: " + ipn);
