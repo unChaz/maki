@@ -59,12 +59,12 @@ maki.resources.IPN.pre('save', function( done ) {
 // all of my custom behavior
 maki.resources.IPN.on('create', function( ipn ) {
   var self = this;
-
-  maki.resources.Contribution.create( ipn , function(err, done) {
-    console.log("Created Contribution")
-  });
+  if(ipn.btcPrice) {
+    maki.resources.Contribution.create( ipn , function(err, done) {
+      console.log("Created Contribution")
+    });
+  }
 });
-
 
 maki.app.get('/', function(req, res, next) {
   var _ = require('underscore');
