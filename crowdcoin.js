@@ -66,6 +66,10 @@ maki.resources.IPN.on('create', function( ipn ) {
   }
 });
 
+maki.app.post('/contributions', function(req, res, next) {
+  return res.send(404);
+});
+
 maki.app.get('/', function(req, res, next) {
   var _ = require('underscore');
   var Contribution = maki.resources.Contribution.Model
