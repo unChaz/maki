@@ -2,7 +2,7 @@ var config = require('./config');
 var rest = require('restler');
 var Maki = require('./lib/Maki');
 var maki = new Maki( config );
-console.log('test');
+
 maki.app.get('/how-to', function(req, res) {
   res.render('how-to');
 });
